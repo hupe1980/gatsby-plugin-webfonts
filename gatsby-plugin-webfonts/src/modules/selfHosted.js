@@ -1,10 +1,17 @@
 const defaultFontOptions = {
   fontDisplay: `swap`,
   fontStyle: `normal`,
+  fontWeight: 400,
 };
 
 const getFontFace = font => {
-  const { family, fontStyle, fontDisplay, urls } = createFontOptions(font);
+  const {
+    family,
+    fontStyle,
+    fontDisplay,
+    fontWeight,
+    urls,
+  } = createFontOptions(font);
 
   const src = Object.entries(urls)
     .map(([format, url]) => `url("${url}") format("${format}")`)
@@ -15,6 +22,7 @@ const getFontFace = font => {
       font-family: "${family}";
       font-style: ${fontStyle};
       font-display: ${fontDisplay};
+      font-weight: ${fontWeight};
       src: ${src};
     }
   `;
