@@ -39,6 +39,19 @@ module.exports = {
               //strategy: 'selfHosted' // 'base64' || 'cdn'
             },
           ],
+          selfHosted: [
+            {
+              family: "Open Sans",
+              urls: {
+                woff2: `/OpenSans400.woff2`,
+                woff: `/OpenSans400.woff`,
+                truetype: `/OpenSans400.ttf`,
+              },
+              //fontStyle: 'normal'
+              //fontDisplay: 'swap',
+              //fontWeight: 400,
+            },
+          ],
         },
         //formats: ['woff2', 'woff'],
         //useMinify: true,
