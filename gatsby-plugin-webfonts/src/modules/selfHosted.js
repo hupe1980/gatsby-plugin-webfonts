@@ -1,17 +1,17 @@
+import postcss from "postcss";
+import postcssJs from "postcss-js";
+
 const defaultFontOptions = {
   fontDisplay: `swap`,
-  fontStyle: `normal`,
-  fontWeight: 400,
 };
 
-const getFontFace = font => {
-  const {
-    family,
-    fontStyle,
-    fontDisplay,
-    fontWeight,
-    urls,
-  } = createFontOptions(font);
+const getFontFace = async font => {
+  const { family, urls, ...cssProperties } = createFontOptions(font);
+
+  const { css } = await postcss().process(cssProperties, {
+    parser: postcssJs,
+    from: undefined,
+  });
 
   const src = Object.entries(urls)
     .map(([format, url]) => `url("${url}") format("${format}")`)
@@ -20,16 +20,14 @@ const getFontFace = font => {
   return `
     @font-face {
       font-family: "${family}";
-      font-style: ${fontStyle};
-      font-display: ${fontDisplay};
-      font-weight: ${fontWeight};
       src: ${src};
+      ${css}
     }
   `;
 };
 
 export default function selfHosted() {
-  return fonts => fonts.map(getFontFace);
+  return fonts => Promise.all(fonts.map(getFontFace));
 }
 
 function createFontOptions(options) {

@@ -18,6 +18,8 @@ module.exports = {
               urls: {
                 woff2: `/OpenSans400.woff2`,
               },
+              fontStyle: `normal`,
+              fontWeight: 400,
             },
           ],
         },

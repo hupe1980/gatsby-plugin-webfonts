@@ -50,6 +50,7 @@ module.exports = {
               //fontStyle: 'normal'
               //fontDisplay: 'swap',
               //fontWeight: 400,
+              //cssProperty: 'value'
             },
           ],
         },
