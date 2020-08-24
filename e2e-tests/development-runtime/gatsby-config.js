@@ -12,6 +12,14 @@ module.exports = {
               variants: [`300`, `400`, `500`],
             },
           ],
+          selfHosted: [
+            {
+              family: `Open Sans`,
+              urls: {
+                woff2: `/OpenSans400.woff2`,
+              },
+            },
+          ],
         },
       },
     },
