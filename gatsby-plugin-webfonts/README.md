@@ -40,6 +40,20 @@ module.exports = {
               //strategy: 'selfHosted' // 'base64' || 'cdn'
             },
           ],
+          selfHosted: [
+            {
+              family: "Open Sans",
+              urls: {
+                woff2: `/OpenSans400.woff2`,
+                woff: `/OpenSans400.woff`,
+                truetype: `/OpenSans400.ttf`,
+              },
+              //fontStyle: 'normal'
+              //fontDisplay: 'swap',
+              //fontWeight: 400,
+              //cssProperty: 'value'
+            },
+          ],
         },
         // formatAgents: {
         //   eot: `Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C; .NET4.0E)`,
