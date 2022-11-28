@@ -27,7 +27,7 @@
     "jest:watch": "jest --watch"
   },
   "peerDependencies": {
-    "gatsby": "^3.0.0 || ^4.0.0"
+  "gatsby": ">=3.0.0"
   },
   "dependencies": {
     "axios": "^0.26.1",
