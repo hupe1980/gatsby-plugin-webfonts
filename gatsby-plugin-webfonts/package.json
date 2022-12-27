@@ -1,6 +1,6 @@
 {
   "name": "gatsby-plugin-webfonts",
-  "version": "2.3.1",
+  "version": "2.3.2",
   "description": "A Gatsby plugin to handle cdn, base64 and self hosted webfonts",
   "license": "MIT",
   "repository": {
