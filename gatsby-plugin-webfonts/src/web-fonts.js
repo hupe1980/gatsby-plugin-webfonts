@@ -35,7 +35,7 @@ export default async function webFonts(options, reporter) {
     }),
   );
 
-  const css = await merge(cssStrings.join(``));
+  const css = await merge(cssStrings.flat().join(``));
   const filePath = path.join(options.cacheFolder, `webfonts.css`);
   await fs.outputFile(filePath, css);
 }
