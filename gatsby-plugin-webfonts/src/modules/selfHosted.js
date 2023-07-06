@@ -14,41 +14,39 @@ export default function selfHosted(
   const getFontFace = async (font) => {
     const { family, urls, ...cssProperties } = createFontOptions(font);
 
-    const src = Object.entries(urls).map(([format, url]) => {
-      const sourcePath = path.join(directory, url);
-      if (!existsSync(sourcePath)) {
-        reporter.panicOnBuild(
-          `Specified selfHosted font file missing: "${sourcePath}"`,
+    const src = Object.entries(urls)
+      .map(([format, url]) => {
+        const sourcePath = path.join(directory, url);
+        if (!existsSync(sourcePath)) {
+          reporter.panicOnBuild(
+            `Specified selfHosted font file missing: "${sourcePath}"`,
+          );
+          return ``;
+        }
+
+        const fileName = path.basename(url);
+        const cssDir = path.join(
+          pathPrefix ? pathPrefix : `/`,
+          `static`,
+          `webfonts`,
         );
-        return ``;
-      }
 
-      const fileName = path.basename(url);
-      const cssDir = path.join(
-        pathPrefix ? pathPrefix : `/`,
-        `static`,
-        `webfonts`,
-      );
+        if (!existsSync(cacheFolder)) {
+          mkdirSync(cacheFolder, { recursive: true }, reporter.error);
+        }
 
-      if (!existsSync(cacheFolder)) {
-        mkdirSync(cacheFolder, { recursive: true }, (err) => {
-          reporter.error(err);
-        });
-      }
+        const outputPath = path.join(cacheFolder, fileName);
 
-      const outputPath = path.join(cacheFolder, fileName);
+        copyFileSync(
+          sourcePath,
+          outputPath,
+          constants.COPYFILE_FICLONE,
+          reporter.error,
+        );
 
-      copyFileSync(
-        sourcePath,
-        outputPath,
-        constants.COPYFILE_FICLONE,
-        (err) => {
-          reporter.error(err);
-        },
-      );
-
-      return `url("${cssDir}/${fileName}") format("${format}")`;
-    });
+        return `url("${cssDir}/${fileName}") format("${format}")`;
+      })
+      .join(`, `);
 
     const { css } = await postcss().process(cssProperties, {
       parser: postcssJs,
