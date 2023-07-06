@@ -15,6 +15,90 @@ describe(`fonts`, () => {
       .and(`equal`, `400`);
   });
 
+  it(`displays content with the self hosted font-style`, () => {
+    cy.getTestElement(`self-hosted-font`)
+      .should(`have.css`, `font-style`)
+      .and(`equal`, `normal`);
+  });
+
+  it(`displays content with the google font-family`, () => {
+    cy.getTestElement(`google-font`)
+      .should(`have.css`, `font-family`)
+      .and(`match`, /Roboto/);
+  });
+
+  it(`displays content with the google font-weight`, () => {
+    cy.getTestElement(`google-font`)
+      .should(`have.css`, `font-weight`)
+      .and(`equal`, `400`);
+  });
+
+  it(`displays content with the google font-style`, () => {
+    cy.getTestElement(`google-font`)
+      .should(`have.css`, `font-style`)
+      .and(`equal`, `normal`);
+  });
+
+  it(`displays content with the google2 font-family`, () => {
+    cy.getTestElement(`google2-font`)
+      .should(`have.css`, `font-family`)
+      .and(`match`, /Rubik/);
+  });
+
+  it(`displays content with the google2 font-weight`, () => {
+    cy.getTestElement(`google2-font`)
+      .should(`have.css`, `font-weight`)
+      .and(`equal`, `400`);
+  });
+
+  it(`displays content with the google2 font-style`, () => {
+    cy.getTestElement(`google2-font`)
+      .should(`have.css`, `font-style`)
+      .and(`equal`, `normal`);
+  });
+
+  it(`successfully generates CSS @font-face and it's descriptors for google`, () => {
+    cy.get(`head`)
+      .first()
+      .within(($head) => {
+        cy.get(`style`)
+          .should(`exist`)
+          .and(`contain`, `@font-face`)
+          .and(
+            `contain`,
+            `{font-display:swap;font-family:Rubik;font-style:normal;font-weight:300;src:url(/static/webfonts/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-WYi1VQ.woff2) format("woff2"),url(/static/webfonts/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-WYi1Uw.woff) format("woff")}`,
+          );
+      });
+  });
+
+  it(`successfully generates CSS @font-face and it's descriptors for google2`, () => {
+    cy.get(`head`)
+      .first()
+      .within(($head) => {
+        cy.get(`style`)
+          .should(`exist`)
+          .and(`contain`, `@font-face`)
+          .and(
+            `contain`,
+            `{font-display:swap;font-family:Rubik;font-style:normal;font-weight:300;src:url(/static/webfonts/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-WYi1VQ.woff2) format("woff2"),url(/static/webfonts/s/rubik/v28/iJWZBXyIfDnIV5PNhY1KTN7Z-Yh-WYi1Uw.woff) format("woff")}`,
+          );
+      });
+  });
+
+  it(`successfully generates CSS @font-face and it's descriptors for self hosted`, () => {
+    cy.get(`head`)
+      .first()
+      .within(($head) => {
+        cy.get(`style`)
+          .should(`exist`)
+          .and(`contain`, `@font-face`)
+          .and(
+            `contain`,
+            `{font-display:swap;font-family:Open Sans;font-style:normal;font-weight:300;src:url(/static/webfonts/OpenSans300.woff2) format("woff2")}@font-face{font-display:swap;font-family:Open Sans;font-style:normal;font-weight:400;src:url(/static/webfonts/OpenSans400.woff2) format("woff2")}`,
+          );
+      });
+  });
+
   it(`successfully loads fonts`, () => {
     cy.document().its(`fonts.status`).should(`equal`, `loaded`);
   });

@@ -209,7 +209,7 @@ module.exports = {
 
 ## Self Hosted Fonts
 
-Add your own self hosted font files. The plugin will handle the imports & preloading. Strategy is always `selfHosted`, subsets are already defined within your font file.
+Add your own self hosted font files. The plugin will handle the imports & preloading. Strategy is always `selfHosted`, subsets are already defined within your font file, preconnect is unnecessary as the fonts will be served from your already connected host.
 
 ```javascript
 module.exports = {
@@ -224,10 +224,10 @@ module.exports = {
               urls: {
                 // src attributes
                 // path relative to gatsby project root
-                woff2: `/examplePath/filename.woff2`,
-                woff: `/examplePath/filename.woff`,
-                otf: `/examplePath/filename.otf`,
-                ttf: `/examplePath/filename.ttf`,
+                woff2: `/fonts/filename.woff2`,
+                woff: `/fonts/filename.woff`,
+                otf: `/fonts/filename.otf`,
+                ttf: `/fonts/filename.ttf`,
               },
               fontStyle: "light",
               fontWeight: 300,
@@ -240,6 +240,7 @@ module.exports = {
 };
 ```
 
+Just put your font files in your desired location and include that location in the `urls` as per the above example.
 As per gatsby docs it is recommended not to put fonts in the `/static` directory. This plugin will automatically be copy them across to `/public/webfonts/selfHosted`.
 
 ## License
