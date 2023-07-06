@@ -7,10 +7,15 @@ import postcssJs from "postcss-js";
 function fontFaceReducer(fontDisplay = `swap`, useMerge) {
   return (acc, obj) => {
     if (useMerge) {
+      const { fontFamily, fontStyle, fontWeight } = obj;
       const srcs = obj.src.split(`,`);
 
       const index = acc.findIndex((element) => {
-        return element.src.split(`,`)[0] === srcs[0];
+        return (
+          element.fontFamily === fontFamily &&
+          element.fontWeight === fontWeight &&
+          element.fontStyle === fontStyle
+        );
       });
 
       if (index > -1) {
@@ -24,13 +29,13 @@ function fontFaceReducer(fontDisplay = `swap`, useMerge) {
 
     obj.fontDisplay = fontDisplay;
     acc.push(obj);
+
     return acc;
   };
 }
 
 export async function parseCss(cssString, { fontDisplay = `swap`, useMerge }) {
   const root = postcss.parse(cssString);
-
   const cssObject = postcssJs.objectify(root);
 
   if (cssObject[`@font-face`]) {
@@ -102,7 +107,7 @@ export async function encodeFonts(css) {
   const fontsEncoded = await Promise.all(
     fontUrls.map(async (fontUrl) => {
       const font = await downloadFont(fontUrl);
-      const format = path.extname(fontUrl).substr(1);
+      const format = path.extname(fontUrl).substring(1);
       return `"data:application/x-font-${format};base64,${Buffer.from(
         font,
         `binary`,

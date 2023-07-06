@@ -35,6 +35,24 @@ export default function App() {
         >
           Static Font Example
         </Typography>
+        <Typography
+          variant="p"
+          component="p"
+          fontFamily="Roboto"
+          fontWeight={400}
+          data-testid="google-font"
+        >
+          Google Font Example
+        </Typography>
+        <Typography
+          variant="p"
+          component="p"
+          fontFamily="Rubik"
+          fontWeight={400}
+          data-testid="google2-font"
+        >
+          Google2 Font Example
+        </Typography>
         <Link to="/about" color="secondary">
           Go to the about page
         </Link>
